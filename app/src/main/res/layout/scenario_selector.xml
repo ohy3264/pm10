@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/oil_container"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:checkedButton="@+id/chk_scenario4"
+        android:id="@+id/radioGroupScenario"
+        android:layout_width="fill_parent"
+        android:layout_height="35.0dip"
+        android:orientation="horizontal"
+        android:paddingBottom="3.0dip"
+        android:paddingTop="2.0dip" >
+
+        <RadioButton
+            android:id="@+id/chk_scenario1"
+            android:layout_width="0.0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_check_box_left_blue"
+            android:button="@null"
+            android:drawableLeft="@null"
+            android:gravity="center"
+            android:text="좋음이상"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_text_tab" />
+
+        <RadioButton
+            android:id="@+id/chk_scenario2"
+            android:layout_width="0.0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_check_box_mid_green"
+            android:button="@null"
+            android:drawableLeft="@null"
+            android:gravity="center"
+            android:text="보통이상"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_text_tab" />
+
+        <RadioButton
+            android:id="@+id/chk_scenario3"
+            android:layout_width="0.0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_check_box_mid_yellow"
+            android:button="@null"
+            android:drawableLeft="@null"
+            android:gravity="center"
+            android:text="나쁨이상"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_text_tab" />
+
+        <RadioButton
+            android:id="@+id/chk_scenario4"
+            android:layout_width="0.0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_check_box_right_red"
+            android:button="@null"
+            android:drawableLeft="@null"
+            android:gravity="center"
+            android:text="매우나쁨"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_text_tab" />
+    </RadioGroup>
+
+</LinearLayout>

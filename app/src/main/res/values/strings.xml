@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PM 10</string>
+    <string name="app_sub_name">실시간 대기오염 정보</string>
+    <string name="action_settings">Settings</string>
+    <string name="air_index_good">좋음</string>
+    <string name="air_index_usually">보통</string>
+    <string name="air_index_slightly_bad">약간나쁨</string>
+    <string name="air_index_bad">나쁨</string>
+    <string name="air_index_very_bad">매우나쁨</string>
+    <string name="air_content_good">대기오염 관련 환자군에서도 영향이 유발되지 않을 수준</string>
+    <string name="air_content_usually">환자군에게 만성 노출시 경미한 영향이 유발될 수 있는 수준</string>
+    <string name="air_content_slightly_bad">환자군 및 민감군(어린이, 노약자)에게 유해한 영향 유발될 수 있는 수준</string>
+    <string name="air_content_bad">환자군 및 민감군에게 유해한 영향을 유발, 일반인도 건강상 불쾌감을 경험할 수 있는 수준</string>
+    <string name="air_content_very_bad">환자군 및 민감군에게 응급 조치가 발생되거나, 일반인에게 유해한 영향이 유발될 수 있는 수준</string>
+
+    <!-- 도시 선택 스피너 Item Array -->
+    <string name="sido_message">도시를 선택하세요</string>
+
+    <string-array name="sido">
+        <item>서울</item>
+        <item>부산</item>
+        <item>대구</item>
+        <item>인천</item>
+        <item>대전</item>
+        <item>광주</item>
+        <item>울산</item>
+        <item>경기</item>
+        <item>강원</item>
+        <item>충북</item>
+        <item>충남</item>
+        <item>전북</item>
+        <item>전남</item>
+        <item>경북</item>
+        <item>경남</item>
+        <item>제주</item>
+    </string-array>
+
+    <string name="title_activity_sido">SidoActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
