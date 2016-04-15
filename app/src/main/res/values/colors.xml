@@ -17,6 +17,7 @@
     <color name="green">#44A937</color>
     <color name="orange">#FF7F00</color>
     <color name="transparent">#00000000</color>
+    <color name="none">#00000000</color>
 
 
     <color name="good">#536DFE</color>

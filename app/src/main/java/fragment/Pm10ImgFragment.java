@@ -27,6 +27,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.pm10.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.apache.cxf.common.util.StringUtils;
 
@@ -109,12 +113,32 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
         mImgAir = (ImageView) fragView.findViewById(R.id.img_air);
         mImgAir.setOnClickListener(this);
 
+        initLoadImg();
 
-       // threadStart();
+        // threadStart();
         setHasOptionsMenu(true);
 
-        asyncTaskCall("PM10");
+        // asyncTaskCall("PM10");
         return fragView;
+    }
+
+    private ProgressDialog progressDialog;
+    public void initLoadImg(){
+        progressDialog = showLoadingDialog();
+        Glide.with(this)
+                .load("http://www.webairwatch.com/kaq/modelimg/PM10.09km.Animation.gif").listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                progressDialog.dismiss();
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                progressDialog.dismiss();
+                return false;
+            }
+        }).crossFade().into(mImgAir);
     }
 
     @Override
@@ -166,7 +190,7 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
                     Log.i("Toggle", "일시정지");
                     onImgPauseState();
 
-                }*/ else if(mImgToggle.getTag().equals("초기화")){
+                }*/ else if (mImgToggle.getTag().equals("초기화")) {
                     Log.i("Toggle", "초기화");
                     onImgResetState();
                 }
@@ -174,17 +198,18 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
         }
     }
 
-    public void onImgStartState(){
+    public void onImgStartState() {
         asyncTaskAniCall("PM10"); // 애니메이션 세팅하고 재생
         mAniFalg = true; // 타이머 쓰레드 재가동
         HYAnimation.GONE(mImgToggle); // 버튼 숨김
         mLinVisible.setTag("off"); // 자동숨김 상태 off
         //mImgToggle.setTag("일시정지"); //현재 토글 상태 (재생->일시정지)
         mImgToggle.setTag("초기화"); //현재 토글 상태 (재생->일시정지)
-      //  mImgToggle.setImageResource(R.drawable.icon_pause); // 이미지 변경
+        //  mImgToggle.setImageResource(R.drawable.icon_pause); // 이미지 변경
         mImgToggle.setImageResource(R.drawable.icon_reset); // 이미지 변경
     }
-    public void onImgPauseState(){
+
+    public void onImgPauseState() {
         if (startNum != 0) //0이 아닐떄 하나빼줌..
             startNum--;
         mAnimationDrawable.stop(); //애니메이션 정지
@@ -192,7 +217,8 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
         mImgToggle.setTag("재생"); //현재 토글상태 (일시정지->재생)
         mImgToggle.setImageResource(R.drawable.icon_play); //이미지 변경
     }
-    public void onImgResetState(){
+
+    public void onImgResetState() {
         startNum = 0; //시작이미지 0으로 세팅
         asyncTaskCall("PM10"); // 애니메이션 재세팅 후 프리뷰만 뛰움
         mAniFalg = false; // 타이머 쓰레드 일시정지
@@ -220,8 +246,8 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
     public void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        if (! mNetworkInfo.networkgetInfo()) {
-          //  asyncTaskCall("PM10");
+        if (!mNetworkInfo.networkgetInfo()) {
+            //  asyncTaskCall("PM10");
         } else {
             Toast.makeText(getActivity(), "네트워크를 확인해 주세요", Toast.LENGTH_SHORT).show();
         }
@@ -277,13 +303,11 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
     }
 
     private class asyncTask extends AsyncTask<String, Integer, Void> {
-        private ProgressDialog progressDialog;
 
         @Override
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
-            progressDialog = showLoadingDialog();
             mAnimationDrawable = new AnimationDrawable();
         }
 
@@ -303,7 +327,7 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
 
             // 이미지 다운로드
             if (StringUtils.isEmpty(mImg_down_flag)
-                    || ! mImg_down_flag.equals(mYear + "-" + (mMonth + 1) + "-"
+                    || !mImg_down_flag.equals(mYear + "-" + (mMonth + 1) + "-"
                     + mDay)) {
                 if (INFO)
                     Log.d(TAG, "오늘 첫 실행 - PM10 예측 Img를 다운로드");
@@ -328,11 +352,10 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
             long endTime = System.currentTimeMillis();
             Log.d("총 걸린 시간 : ", (endTime - startTime) / 1000.0 + " sec");
 
-            progressDialog.dismiss();
             return null;
         }
 
-        @SuppressWarnings ("deprecation")
+        @SuppressWarnings("deprecation")
         @Override
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
@@ -341,7 +364,6 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
             mImgAir.setImageDrawable(mAnimationDrawable.getFrame(0));
             //mAnimationDrawable.start();
 
-            progressDialog.dismiss();
         }
     }
 
@@ -350,7 +372,7 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
         super.onDetach();
         Log.i(TAG, "onDetach");
         exit = true;
-        mAniFalg =true;
+        mAniFalg = true;
     }
 
 
@@ -381,7 +403,7 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
             return null;
         }
 
-        @SuppressWarnings ("deprecation")
+        @SuppressWarnings("deprecation")
         @Override
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
@@ -435,7 +457,7 @@ public class Pm10ImgFragment extends Fragment implements OnClickListener {
                             }
                         });
                     }
-                    if(exit){
+                    if (exit) {
                         break;
                     }
                 } catch (Exception e) {
